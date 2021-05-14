@@ -50,6 +50,19 @@
     1. 배달상태가 바뀔때마다 카톡 등으로 알림을 줄 수 있어야 한다  Event driven
 
 # 체크포인트
+- 평가 항목
+  - Saga
+  - CQRS
+  - Correlation
+  - Req/Resp
+  - Gateway
+  - Deploy/ Pipeline
+  - Circuit Breaker
+  - Autoscale (HPA)
+  - Zero-downtime deploy (Readiness Probe)
+  - Config Map/ Persistence Volume
+  - Polyglot
+  - Self-healing (Liveness Probe)
 
 - 분석 설계
 
