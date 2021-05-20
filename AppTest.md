@@ -72,7 +72,14 @@ Transfer-Encoding: chunked
     }
 }
 
+http GET http://localhost:8083/movieManagements
+http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10003 title="자산어보" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10004 title="간이역" status="opened"
 ```
+
+
 
 ```sh
 http http://localhost:8084

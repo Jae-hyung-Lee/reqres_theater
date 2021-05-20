@@ -1,9 +1,13 @@
 package theater;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+
 import org.springframework.beans.BeanUtils;
-import java.util.List;
-import java.util.Date;
 
 @Entity
 @Table(name="MovieManagement_table")
@@ -21,10 +25,7 @@ public class MovieManagement {
         MovieRegistered movieRegistered = new MovieRegistered();
         BeanUtils.copyProperties(this, movieRegistered);
         movieRegistered.publishAfterCommit();
-
-
     }
-
 
     public Long getId() {
         return id;

@@ -24,10 +24,6 @@ spring:
           uri: http://localhost:8084
           predicates:
             - Path=/movieSeats/**/movies/** /reservationavailabilityinquiries/**
-        - id: drop
-          uri: http://localhost:8085
-          predicates:
-            - Path= 
         - id: notice
           uri: http://localhost:8086
           predicates:
@@ -67,10 +63,6 @@ spring:
           uri: http://theater:8080
           predicates:
             - Path=/movieSeats/**/movies/** /reservationavailabilityinquiries/**
-        - id: drop
-          uri: http://drop:8080
-          predicates:
-            - Path= 
         - id: notice
           uri: http://notice:8080
           predicates:
