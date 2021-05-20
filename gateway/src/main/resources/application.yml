@@ -1,8 +1,6 @@
 server:
   port: 8088
-
 ---
-
 spring:
   profiles: default
   cloud:
@@ -11,26 +9,26 @@ spring:
         - id: app
           uri: http://localhost:8081
           predicates:
-            - Path=/reservations/** /retrieveReservations/**/retrieveMovies/**
+            - Path=/reservations/**, /retrieveReservations/**/retrieveMovies/**
         - id: pay
           uri: http://localhost:8082
           predicates:
-            - Path=/approvals/** 
+            - Path=/approvals/**
         - id: movie
           uri: http://localhost:8083
           predicates:
-            - Path=/movieManagements/** /movieInquiries/**/listinqueries/**/detailinqueries/**
+            - Path=/movieManagements/**, /movieInquiries/**/listinqueries/**/detailinqueries/**
         - id: theater
           uri: http://localhost:8084
           predicates:
-            - Path=/movieSeats/**/movies/** /reservationavailabilityinquiries/**
+            - Path=/movieSeats/**/movies/**, /reservationavailabilityinquiries/**
         - id: notice
           uri: http://localhost:8086
           predicates:
-            - Path= 
+            - Path=
       globalcors:
         corsConfigurations:
-          '[/**]':
+          "[/**]":
             allowedOrigins:
               - "*"
             allowedMethods:
@@ -38,10 +36,7 @@ spring:
             allowedHeaders:
               - "*"
             allowCredentials: true
-
-
 ---
-
 spring:
   profiles: docker
   cloud:
@@ -54,7 +49,7 @@ spring:
         - id: pay
           uri: http://pay:8080
           predicates:
-            - Path=/approvals/** 
+            - Path=/approvals/**
         - id: movie
           uri: http://movie:8080
           predicates:
@@ -66,10 +61,10 @@ spring:
         - id: notice
           uri: http://notice:8080
           predicates:
-            - Path= 
+            - Path=
       globalcors:
         corsConfigurations:
-          '[/**]':
+          "[/**]":
             allowedOrigins:
               - "*"
             allowedMethods:
