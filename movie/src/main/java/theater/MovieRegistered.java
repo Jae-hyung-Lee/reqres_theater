@@ -5,6 +5,7 @@ public class MovieRegistered extends AbstractEvent {
 
     private Long id;
     private Long movieId;
+    private String title;
     private String status;
 
     public Long getId() {
@@ -14,6 +15,7 @@ public class MovieRegistered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Long getMovieId() {
         return movieId;
     }
@@ -21,6 +23,15 @@ public class MovieRegistered extends AbstractEvent {
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -29,4 +40,3 @@ public class MovieRegistered extends AbstractEvent {
         this.status = status;
     }
 }
-

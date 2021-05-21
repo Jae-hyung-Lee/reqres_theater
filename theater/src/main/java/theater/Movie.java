@@ -1,9 +1,10 @@
 package theater;
 
-import javax.persistence.*;
-import org.springframework.beans.BeanUtils;
-import java.util.List;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="Movie_table")
@@ -13,7 +14,8 @@ public class Movie {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private Long movieId;
-
+    private String title;
+    private String status;
 
     public Long getId() {
         return id;
@@ -30,7 +32,20 @@ public class Movie {
         this.movieId = movieId;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 }

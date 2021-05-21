@@ -1,3 +1,5 @@
+# 서비스 동작 확인
+- app servie
 ```sh
 http http://localhost:8081
 HTTP/1.1 200
@@ -22,7 +24,7 @@ Transfer-Encoding: chunked
     }
 }
 ```
-
+- apy service
 ```sh
 http http://localhost:8082
 HTTP/1.1 200 
@@ -43,7 +45,7 @@ Transfer-Encoding: chunked
 }
 
 ```
-
+- movie service
 ```sh
 http http://localhost:8083
 HTTP/1.1 200
@@ -71,16 +73,8 @@ Transfer-Encoding: chunked
         }
     }
 }
-
-http GET http://localhost:8083/movieManagements
-http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
-http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
-http POST http://localhost:8083/movieManagements movieId=10003 title="자산어보" status="opened"
-http POST http://localhost:8083/movieManagements movieId=10004 title="간이역" status="opened"
 ```
-
-
-
+- theater service
 ```sh
 http http://localhost:8084
 HTTP/1.1 200
@@ -106,4 +100,16 @@ Transfer-Encoding: chunked
         }
     }
 }
-``
+```
+
+# 서비스 테스트
+
+- movie등록
+```sh
+http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10003 title="자산어보" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10004 title="간이역" status="opened"
+http GET http://localhost:8083/movieManagements
+http GET http://localhost:8084/movies
+```
