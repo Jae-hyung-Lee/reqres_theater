@@ -24,7 +24,7 @@ Transfer-Encoding: chunked
     }
 }
 ```
-- apy service
+- pay service
 ```sh
 http http://localhost:8082
 HTTP/1.1 200 
