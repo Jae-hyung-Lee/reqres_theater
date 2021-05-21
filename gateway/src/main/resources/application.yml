@@ -45,7 +45,7 @@ spring:
         - id: app
           uri: http://app:8080
           predicates:
-            - Path=/reservations/** /retrieveReservations/**/retrieveMovies/**
+            - Path=/reservations/**, /retrieveReservations/**/retrieveMovies/**
         - id: pay
           uri: http://pay:8080
           predicates:
@@ -53,11 +53,11 @@ spring:
         - id: movie
           uri: http://movie:8080
           predicates:
-            - Path=/movieManagements/** /movieInquiries/**/listinqueries/**/detailinqueries/**
+            - Path=/movieManagements/**, /movieInquiries/**/listinqueries/**/detailinqueries/**
         - id: theater
           uri: http://theater:8080
           predicates:
-            - Path=/movieSeats/**/movies/** /reservationavailabilityinquiries/**
+            - Path=/movieSeats/**/movies/**, /reservationavailabilityinquiries/**
         - id: notice
           uri: http://notice:8080
           predicates:
