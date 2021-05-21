@@ -13,8 +13,8 @@ public class MovieSeat {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String seatId;
-    private Long movieId;
-    private Long payId;
+    private String movieId;
+    private String payId;
     private String status;
 
     @PrePersist
@@ -44,18 +44,18 @@ public class MovieSeat {
     public void setSeatId(String seatId) {
         this.seatId = seatId;
     }
-    public Long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
-    public Long getPayId() {
+    public String getPayId() {
         return payId;
     }
 
-    public void setPayId(Long payId) {
+    public void setPayId(String payId) {
         this.payId = payId;
     }
     public String getStatus() {

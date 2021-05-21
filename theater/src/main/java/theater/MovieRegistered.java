@@ -4,8 +4,8 @@ package theater;
 public class MovieRegistered extends AbstractEvent {
 
     private Long id;
-    private Long movieId;
-    private String  title;
+    private String movieId;
+    private String title;
     private String status;
 
     public Long getId() {
@@ -15,11 +15,11 @@ public class MovieRegistered extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

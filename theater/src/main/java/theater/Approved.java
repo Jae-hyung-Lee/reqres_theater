@@ -4,7 +4,7 @@ package theater;
 public class Approved extends AbstractEvent {
 
     private Long id;
-    private Long payId;
+    private String payId;
 
     public Long getId() {
         return id;
@@ -13,11 +13,11 @@ public class Approved extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getPayId() {
+    public String getPayId() {
         return payId;
     }
 
-    public void setPayId(Long payId) {
+    public void setPayId(String payId) {
         this.payId = payId;
     }
 }

@@ -13,7 +13,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private Long movieId;
+    private String movieId;
     private String title;
     private String status;
 
@@ -24,11 +24,11 @@ public class Movie {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Long movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 
@@ -47,5 +47,5 @@ public class Movie {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }
