@@ -27,8 +27,6 @@ public class MovieSeat {
         SeatCanceled seatCanceled = new SeatCanceled();
         BeanUtils.copyProperties(this, seatCanceled);
         seatCanceled.publishAfterCommit();
-
-
     }
 
 

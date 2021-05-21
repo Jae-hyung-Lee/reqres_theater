@@ -11,12 +11,8 @@ import theater.config.kafka.KafkaProcessor;
 public class PolicyHandler{
     @Autowired MovieManagementRepository movieManagementRepository;
 
-
-
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString){
         System.out.println("영화 등록됨....");
     }
-
-
 }
