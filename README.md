@@ -302,26 +302,25 @@ REST 서비스를 FeignClient 를 이용하여 호출하도록 한다.
 
 ## 비동기식 호출 / 장애격리 / 성능
 
-영화 예매 취소(app) 이후 결재 취소(pay), 해당 극장 영화/좌석 취소(theater)는 비동기식 처리이므로, 
+영화 예매 취소(app) 요청 이후 결재 취소(pay), 해당 극장 영화/좌석 취소(theater)는 비동기식 처리이므로, 
 영화 예매 취소(app)의 서비스 호출에는 영향이 없도록 구성 합니다.
- 
-<영화 예매 취소>
+
+영화 예매 취소(app) 요청 후 결재 취소(pay)가 정상적으로 안되는 경우 
+해당 극장 영화/좌석(theater)은 예약중으로 남게 됩니다.
+
+<영화 예매 취소 요청>
 
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
-<결재 취소>
+<극장 영화/좌석 예약 상태>
 
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
-
-<해당 극장 영화/좌석 취소>
-
-![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
-
 
 ## 정보 조회 / View 조회
 고객은 예약 현황을 조회 할 수 있습니다. 
 
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
+
 
 
 ## 소스 패키징
