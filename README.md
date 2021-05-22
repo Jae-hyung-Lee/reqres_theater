@@ -150,19 +150,23 @@ public interface MovieManagementRepository extends PagingAndSortingRepository<Mo
 }
 ```
 
+- 적용 후 REST API 의 테스트
+```
+# Movie 등록
+http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10003 title="자산어보" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10004 title="간이역" status="opened"
+http GET http://localhost:8083/movieManagements
+http GET http://localhost:8084/movies
+```
+
 ## 폴리글랏 퍼시스턴스
 
 ```
 위치 : /reqres_theater>app>pom.xml
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-        
 ```
-
+![image](https://user-images.githubusercontent.com/80744278/119217655-83369880-bb16-11eb-95f9-588fcfcebcbe.png)
 
 
 
