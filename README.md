@@ -295,7 +295,7 @@ gateway > applitcation.yml 설정
 http localhost:8080/app
 -> gateway 를 호출하나 8081 로 호출됨
 ```
-![gateway_3](https://user-images.githubusercontent.com/78134019/109480424-da504280-7abe-11eb-988e-2a6d7a1f7cea.png)
+![image](https://user-images.githubusercontent.com/80744278/119225947-ac205300-bb41-11eb-92f0-5030dde80ad7.png)
 
 
 
