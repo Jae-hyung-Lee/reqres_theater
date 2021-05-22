@@ -170,7 +170,7 @@ http GET http://localhost:8084/movies
 
 ## ★수정 필요★ 폴리글랏 프로그래밍 
 
-고객관리 서비스(customer)의 시나리오인 주문상태, 배달상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 파트는 해당 팀이 python 을 이용하여 구현하기로 하였다. 해당 파이썬 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
+영화 예매 서비스의 시나리오인 예약 완료/취소 상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 하였다. 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
 ```
 from flask import Flask
 from redis import Redis, RedisError
@@ -191,7 +191,7 @@ for message in consumer:
     # 카톡호출 API
 ```
 
-파이선 애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다 (운영단계에서 할일인가? 아니다 여기 까지가 개발자가 할일이다. Immutable Image):
+애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다
 ```
 FROM python:2.7-slim
 WORKDIR /app
@@ -209,7 +209,7 @@ CMD ["python", "policy-handler.py"]
 고객이 영화를 선택 후 예매(app) 후 결재요청(pay)은 (req/res) 되며,
 결재 완료 후 영화 예매 상태가 완료 됩니다.
 
-로컬에서는 다음과 같이 영화 예매를 한다. 
+로컬에서는 다음과 같이 영화 선택 한다. 
 ```
 http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
 http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
@@ -219,16 +219,16 @@ http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파
 ![taxicall2](https://user-images.githubusercontent.com/78134019/109771589-545c0500-7c40-11eb-997a-90249ea8f912.png)
 
 
-우선, 클라우드 상에서 결재 완료를 합니다. External-IP는 xxx.xxx.xxx.xxx 입니다.
+영화 선택 후 결재처리 합니다.   
 ```
-http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
-http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
+http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
 ```
 
 ![1](https://user-images.githubusercontent.com/7607807/109840083-16380300-7c8b-11eb-80d1-5eb6815ac53a.png)
 
 
-아래 호출 결과는 모두 택시 할당(taxiassign)에서 택시기사의 할당되어 호출 서비스를 확인하연 호출 상태는 호출 확정가 되어 있습니다.
+결재가 완료 되면 해당 극장에서 영화와 관람관 좌석을 선택하여 예매를 완료 합니다. 
 
 ![3](https://user-images.githubusercontent.com/78134019/109771602-58882280-7c40-11eb-93c4-a3831156c151.png)
 
