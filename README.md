@@ -212,27 +212,20 @@ CMD ["python", "policy-handler.py"]
 http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
 http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
 ```
-![taxicall1](https://user-images.githubusercontent.com/78134019/109771576-51611480-7c40-11eb-8754-94d35a5703ec.png)
-
-![taxicall2](https://user-images.githubusercontent.com/78134019/109771589-545c0500-7c40-11eb-997a-90249ea8f912.png)
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 영화 선택 후 결재처리 합니다.   
 ```
-http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
-http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
+http localhost:808X/
 ```
-
-![1](https://user-images.githubusercontent.com/7607807/109840083-16380300-7c8b-11eb-80d1-5eb6815ac53a.png)
-
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 결재가 완료 되면 해당 극장에서 영화와 관람관 좌석을 선택하여 예매를 완료 합니다. 
-
-![3](https://user-images.githubusercontent.com/78134019/109771602-58882280-7c40-11eb-93c4-a3831156c151.png)
-
-![4](https://user-images.githubusercontent.com/78134019/109771654-69d12f00-7c40-11eb-9d2c-4807f0c3d726.png)
-
-![5](https://user-images.githubusercontent.com/78134019/109771661-6c338900-7c40-11eb-8a4a-9a758a8d1613.png)
+```
+http localhost:808X/
+```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 - 영화 예매 취소 처리
 
@@ -240,36 +233,29 @@ http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파
 해당 극장(theater) 예약이 취소 됩니다. 
 
 고객이 예약 취소를 요청 합니다.
-
 ```
-http delete http://localhost:8081/택시호출s/1
-HTTP/1.1 204
-Date: Tue, 02 Mar 2021 16:59:12 GMT
+http localhost:808X/
 ```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 예약 취소 요청를 완료하면 결재를 취소를 합니다. 
 ```
-http delete http://20.194.36.201:8080/taxicalls/1
-HTTP/1.1 204
-Date: Tue, 02 Mar 2021 16:59:12 GMT
+http localhost:808X/
 ```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 결재 취소가 되면 해당 극장 영화/좌석의 예약이 취소 됩니다.  
-
 ```
-http localhost:8081/택시호출s/
-http 20.194.36.201:8080/taxicalls
+http localhost:808X/
 ```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
-![6](https://user-images.githubusercontent.com/78134019/109771698-7a81a500-7c40-11eb-964e-a07e989f997c.png)
-
-![1](https://user-images.githubusercontent.com/7607807/109840796-cb6abb00-7c8b-11eb-8cb9-0d623fe11043.png)
 
 - 고객 메시지 서비스 처리 
 
 고객은 예약 완료, 예약 취소에 대한 메시지를 다음과 같이 받을 수 있으며, 관련 정보를 또한 확인 할 수 있습니다.
 
-![8](https://user-images.githubusercontent.com/78134019/109771811-9ab16400-7c40-11eb-8a49-57156a4d0c8e.png)
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 ## Gateway 적용
@@ -295,7 +281,7 @@ gateway > applitcation.yml 설정
 http localhost:8080/app
 -> gateway 를 호출하나 8081 로 호출됨
 ```
-![image](https://user-images.githubusercontent.com/80744278/119225947-ac205300-bb41-11eb-92f0-5030dde80ad7.png)
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 
