@@ -4,6 +4,48 @@
 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
 - 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
 
+# 서비스 시나리오
+
+기능적 요구사항
+1. 고객이 영화를 선택하여 예매한다.
+1. 고객이 결제한다.
+1. 예매가 완료되면 예매 내역이 해당 극장에 전달된다.
+1. 영화가 등록되면 상영관이 반드시 지정된다.
+1. 해당 극장은 해당영화의 관람관 좌석를 예매처리 한다.
+1. 고객은 예매를 취소할 수 있다.
+1. 예매를 취소하면 좌석예매도 취소처리한다.
+1. 고객은 예매현황을 조회할 수있다.
+1. 예매 현황은 카톡으로 알려 준다.(예매 취소 포함)
+
+비기능적 요구사항
+1. 트랜잭션
+    1. 결제가 되지 않으면 예매를 할 수 없다.(Sync호출)
+1. 장애격리
+    1. 예매관리 기능이 수행되지 않더라도 예매는 365일 24시간 받을 수 있어야 한다  Async (event-driven), Eventual Consistency
+    1. 결제시스템이 과중되면 사용자를 잠시동안 받지 않고 결제를 잠시후에 하도록 유도한다  Circuit breaker, fallback
+1. 성능
+    1. 고객이 자주 예매관리에서 확인할 수 있는 예매현황을 예매시스템(프론트엔드)에서 확인할 수 있어야 한다  CQRS
+    1. 예매상태가 바뀔때마다 카톡 등으로 알림을 줄 수 있어야 한다  Event driven
+
+
+# 체크포인트
+
+1. Saga
+1. CQRS
+1. Correlation
+1. Req/Resp
+1. Gateway
+1. Deploy/ Pipeline
+1. Circuit Breaker
+1. Autoscale (HPA)
+1. Zero-downtime deploy (Readiness Probe)
+1. Config Map/ Persistence Volume
+1. Polyglot
+1. Self-healing (Liveness Probe)
+
+# 분석/설계
+
+
 # 설계
 ![](project-map.png)
 
