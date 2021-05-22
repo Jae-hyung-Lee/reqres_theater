@@ -207,9 +207,9 @@ CMD ["python", "policy-handler.py"]
 - 영화 예매 처리 
 
 고객이 영화를 선택 후 예매(app) 후 결재요청(pay)은 (req/res) 되며,
-결재 완료 후 영화 예매 상태가 완료 됩니다.
+결재 완료 후 해당 극장(theater) 좌석 선택 후 예매가 완료 됩니다.
 
-로컬에서는 다음과 같이 영화 선택 한다. 
+고객이 영화를 선택 합니다. 
 ```
 http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
 http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
@@ -236,14 +236,12 @@ http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파
 
 ![5](https://user-images.githubusercontent.com/78134019/109771661-6c338900-7c40-11eb-8a4a-9a758a8d1613.png)
 
-클라우드 상에서도 마찬가지 입니다.
+- 영화 예매 취소 처리
 
-![3](https://user-images.githubusercontent.com/7607807/109840275-50090980-7c8b-11eb-9f37-0ca07115308e.png)
+고객이 예약 현황(app)을 확인 하고 해당 예약을 취소하면 결재(pay) 및 
+해당 극장(theater) 예약이 취소 됩니다. 
 
-![1](https://user-images.githubusercontent.com/7607807/109841386-564bb580-7c8c-11eb-8262-bf28c1a2bd70.png)
-- taxicall 서비스 호출 취소 처리
-
-호출 취소는 택시호출에서 다음과 같이 호출 하나를 취소 함으로써 진행 합니다.
+고객이 예약 취소를 요청 합니다.
 
 ```
 http delete http://localhost:8081/택시호출s/1
@@ -251,15 +249,14 @@ HTTP/1.1 204
 Date: Tue, 02 Mar 2021 16:59:12 GMT
 ```
 
-클라우드 상에서 호출 취소는 다음과 같습니다.
+예약 취소 요청를 완료하면 결재를 취소를 합니다. 
 ```
 http delete http://20.194.36.201:8080/taxicalls/1
 HTTP/1.1 204
 Date: Tue, 02 Mar 2021 16:59:12 GMT
 ```
 
-
-호출이 취소 되면 아래와 같이 택시 호출이 하나가 삭제 되었고, 
+결재 취소가 되면 해당 극장 영화/좌석의 예약이 취소 됩니다.  
 
 ```
 http localhost:8081/택시호출s/
@@ -270,22 +267,9 @@ http 20.194.36.201:8080/taxicalls
 
 ![1](https://user-images.githubusercontent.com/7607807/109840796-cb6abb00-7c8b-11eb-8cb9-0d623fe11043.png)
 
-택시관리에서는 해당 호출의 호출 상태가 호출취소로 상태가 변경 됩니다.
-
-```
-http localhost:8082/택시관리s/
-http 20.194.36.201:8080/taximanags
-```
-
-![7](https://user-images.githubusercontent.com/78134019/109771726-83727680-7c40-11eb-88bd-169a8d6184fe.png)
-
-![2](https://user-images.githubusercontent.com/7607807/109840982-f3f2b500-7c8b-11eb-9373-00844726bb04.png)
-
 - 고객 메시지 서비스 처리 
 
-고객(customer)는 호출 확정과 할당 확정에 대한 메시지를 다음과 같이 받을 수 있으며,
-할당 된 택시기사의 정보를 또한 확인 할 수 있습니다.
-파이썬으로 구현 하였습니다.
+고객은 예약 완료, 예약 취소에 대한 메시지를 다음과 같이 받을 수 있으며, 관련 정보를 또한 확인 할 수 있습니다.
 
 ![8](https://user-images.githubusercontent.com/78134019/109771811-9ab16400-7c40-11eb-8a49-57156a4d0c8e.png)
 
