@@ -271,6 +271,7 @@ notice 서비스 : 8086
 ```
 
 gateway > applitcation.yml 설정
+
 ![image](https://user-images.githubusercontent.com/80744278/119225782-edfcc980-bb40-11eb-98b6-0563c0ebc820.png)
 
 - gateway 로컬 테스트
