@@ -1,7 +1,5 @@
 # 2조 과제 : 영화예매 시스템
 
-- 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
-
 # 서비스 시나리오
 
 기능적 요구사항
@@ -349,3 +347,4 @@ cd ..
 ![image](https://user-images.githubusercontent.com/80744278/119227564-8a2ace80-bb49-11eb-88ce-e2df20a617a4.png)
 
 
+※ 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
