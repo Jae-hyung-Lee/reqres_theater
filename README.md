@@ -72,8 +72,6 @@ cd notice
 mvn spring-boot:run
 ```
 
-
-
 ## DDD 의 적용
 총 5개의 Domain 으로 관리되고 있으며, 예약관리(Reservation) , 결재관리(Approval), 상영영화(MovieManagement), 영화좌석관리(MovieSeat), 영화관리(Movie)으로 구성하였습니다. 
 
@@ -277,29 +275,24 @@ http 20.194.36.201:8080/taxicalls
 ## Gateway 적용
 
 서비스에 대한 하나의 접점을 만들기 위한 게이트웨이의 설정은 8088이며, 
-택시호출,택시관리 및 택시할당 마이크로서비스에 대한 일원화 된 접점을 제공하기 위한 설정 입니다.
+예매관리,결재관리 및 극장정보등 마이크로서비스에 대한 일원화 된 접점을 제공하기 위한 설정 입니다.
 ```
-택시호출 서비스 : 8081
-택시관리 서비스 : 8082
-택시할당 서비스 : 8083
+app 서비스 : 8081
+pay 서비스 : 8082
+movie 서비스 : 8083
+theater 서비스 : 8084
+notice 서비스 : 8086
 ```
 
 gateway > applitcation.yml 설정
-
-![gateway_1](https://user-images.githubusercontent.com/78134019/109480363-c73d7280-7abe-11eb-9904-0c18e79072eb.png)
-
-아래 설정은 DDD를 통해서 구현 된 한글화 된 서비스를 클라우드에서 호출 할 경우, 문제가 발생하여 모든 도메인 명 및 서비스를 
-영어로 재 구현 하였으며, 이에 대한 게이트웨이 처리를 보여주고 있습니다.
-
-![gateway_2](https://user-images.githubusercontent.com/78134019/109480386-d02e4400-7abe-11eb-9251-a813ac911e0d.png)
-
+![image](https://user-images.githubusercontent.com/80744278/119225782-edfcc980-bb40-11eb-98b6-0563c0ebc820.png)
 
 - gateway 로컬 테스트
 
 로컬 테스트는 다음과 같이 한글 서비스 호출로 테스트 되었습니다.
 
 ```
-http localhost:8080/택시호출s
+http localhost:8080/app
 -> gateway 를 호출하나 8081 로 호출됨
 ```
 ![gateway_3](https://user-images.githubusercontent.com/78134019/109480424-da504280-7abe-11eb-988e-2a6d7a1f7cea.png)
