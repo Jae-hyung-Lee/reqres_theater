@@ -165,7 +165,7 @@ http GET http://localhost:8084/movies
 ```
 ![image](https://user-images.githubusercontent.com/80744278/119217655-83369880-bb16-11eb-95f9-588fcfcebcbe.png)
 
-## ★수정 필요★ 폴리글랏 프로그래밍 
+## ★ 수정 필요 ★ 폴리글랏 프로그래밍 
 
 영화 예매 서비스의 시나리오인 예약 완료/취소 상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 하였다. 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
 ```
@@ -347,9 +347,9 @@ cd ..
 ![image](https://user-images.githubusercontent.com/80744278/119227564-8a2ace80-bb49-11eb-88ce-e2df20a617a4.png)
 
 
-# 클라우드 배포/운영 파이프라인
+# ★ 수정 필요 ★ 클라우드 배포/운영 파이프라인
 
-- 애저 클라우드에 배포하기 위해서 다음과 같이 주요 정보를 설정 하였습니다.
+- aws 클라우드에 배포하기 위해서 다음과 같이 주요 정보를 설정 하였습니다.
 
 ```
 리소스 그룹명 : skccteam03-rsrcgrp
@@ -357,8 +357,8 @@ cd ..
 레지스트리 명 : skccteam03
 ```
 
-- az login
-우선 애저에 로그인 합니다.
+- aws login
+우선 aws에 로그인 합니다.
 ```
 {
     "cloudName": "AzureCloud",
