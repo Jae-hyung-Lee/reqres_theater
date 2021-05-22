@@ -1,4 +1,4 @@
-# 영화예매 시스템
+# 2조 과제 : 영화예매 시스템
 
 - 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
 
@@ -168,7 +168,7 @@ http GET http://localhost:8084/movies
 ```
 ![image](https://user-images.githubusercontent.com/80744278/119217655-83369880-bb16-11eb-95f9-588fcfcebcbe.png)
 
-## (★수정 필요★) 폴리글랏 프로그래밍 
+## ★수정 필요★ 폴리글랏 프로그래밍 
 
 고객관리 서비스(customer)의 시나리오인 주문상태, 배달상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 파트는 해당 팀이 python 을 이용하여 구현하기로 하였다. 해당 파이썬 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
 ```
@@ -201,6 +201,124 @@ ENV NAME World
 EXPOSE 8090
 CMD ["python", "policy-handler.py"]
 ```
+
+## ★수정 필요★ 마이크로 서비스 호출 흐름
+
+- 영화 예매 처리 
+
+영화 검색 후 예약(app)->결재관리(pay) 우선 결재처리(req/res) 되며,
+결재완(taxiassign)에서 택시기사를 할당하게 되면 호출 상태가 호출에서 호출확정 상태가 됩니다
+
+우선, 로컬에서는 다음과 같이 두 개의 호출 상태를 만듭니다.
+```
+http localhost:8081/택시호출s 휴대폰번호="01012345678" 호출상태=호출 호출위치="마포" 예상요금=25000
+http localhost:8081/택시호출s 휴대폰번호="01056789012" 호출상태=호출 호출위치="서대문구" 예상요금=30000
+```
+![taxicall1](https://user-images.githubusercontent.com/78134019/109771576-51611480-7c40-11eb-8754-94d35a5703ec.png)
+
+![taxicall2](https://user-images.githubusercontent.com/78134019/109771589-545c0500-7c40-11eb-997a-90249ea8f912.png)
+
+우선, 클라우드 상에서 호출은 다음과 같이 합니다. External-IP는 20.194.36.201 입니다.
+```
+http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
+http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
+```
+
+![1](https://user-images.githubusercontent.com/7607807/109840083-16380300-7c8b-11eb-80d1-5eb6815ac53a.png)
+
+
+아래 호출 결과는 모두 택시 할당(taxiassign)에서 택시기사의 할당되어 호출 서비스를 확인하연 호출 상태는 호출 확정가 되어 있습니다.
+
+![3](https://user-images.githubusercontent.com/78134019/109771602-58882280-7c40-11eb-93c4-a3831156c151.png)
+
+![4](https://user-images.githubusercontent.com/78134019/109771654-69d12f00-7c40-11eb-9d2c-4807f0c3d726.png)
+
+![5](https://user-images.githubusercontent.com/78134019/109771661-6c338900-7c40-11eb-8a4a-9a758a8d1613.png)
+
+클라우드 상에서도 마찬가지 입니다.
+
+![3](https://user-images.githubusercontent.com/7607807/109840275-50090980-7c8b-11eb-9f37-0ca07115308e.png)
+
+![1](https://user-images.githubusercontent.com/7607807/109841386-564bb580-7c8c-11eb-8262-bf28c1a2bd70.png)
+- taxicall 서비스 호출 취소 처리
+
+호출 취소는 택시호출에서 다음과 같이 호출 하나를 취소 함으로써 진행 합니다.
+
+```
+http delete http://localhost:8081/택시호출s/1
+HTTP/1.1 204
+Date: Tue, 02 Mar 2021 16:59:12 GMT
+```
+
+클라우드 상에서 호출 취소는 다음과 같습니다.
+```
+http delete http://20.194.36.201:8080/taxicalls/1
+HTTP/1.1 204
+Date: Tue, 02 Mar 2021 16:59:12 GMT
+```
+
+
+호출이 취소 되면 아래와 같이 택시 호출이 하나가 삭제 되었고, 
+
+```
+http localhost:8081/택시호출s/
+http 20.194.36.201:8080/taxicalls
+```
+
+![6](https://user-images.githubusercontent.com/78134019/109771698-7a81a500-7c40-11eb-964e-a07e989f997c.png)
+
+![1](https://user-images.githubusercontent.com/7607807/109840796-cb6abb00-7c8b-11eb-8cb9-0d623fe11043.png)
+
+택시관리에서는 해당 호출의 호출 상태가 호출취소로 상태가 변경 됩니다.
+
+```
+http localhost:8082/택시관리s/
+http 20.194.36.201:8080/taximanags
+```
+
+![7](https://user-images.githubusercontent.com/78134019/109771726-83727680-7c40-11eb-88bd-169a8d6184fe.png)
+
+![2](https://user-images.githubusercontent.com/7607807/109840982-f3f2b500-7c8b-11eb-9373-00844726bb04.png)
+
+- 고객 메시지 서비스 처리 
+
+고객(customer)는 호출 확정과 할당 확정에 대한 메시지를 다음과 같이 받을 수 있으며,
+할당 된 택시기사의 정보를 또한 확인 할 수 있습니다.
+파이썬으로 구현 하였습니다.
+
+![8](https://user-images.githubusercontent.com/78134019/109771811-9ab16400-7c40-11eb-8a49-57156a4d0c8e.png)
+
+
+## Gateway 적용
+
+서비스에 대한 하나의 접점을 만들기 위한 게이트웨이의 설정은 8088이며, 
+택시호출,택시관리 및 택시할당 마이크로서비스에 대한 일원화 된 접점을 제공하기 위한 설정 입니다.
+```
+택시호출 서비스 : 8081
+택시관리 서비스 : 8082
+택시할당 서비스 : 8083
+```
+
+gateway > applitcation.yml 설정
+
+![gateway_1](https://user-images.githubusercontent.com/78134019/109480363-c73d7280-7abe-11eb-9904-0c18e79072eb.png)
+
+아래 설정은 DDD를 통해서 구현 된 한글화 된 서비스를 클라우드에서 호출 할 경우, 문제가 발생하여 모든 도메인 명 및 서비스를 
+영어로 재 구현 하였으며, 이에 대한 게이트웨이 처리를 보여주고 있습니다.
+
+![gateway_2](https://user-images.githubusercontent.com/78134019/109480386-d02e4400-7abe-11eb-9251-a813ac911e0d.png)
+
+
+- gateway 로컬 테스트
+
+로컬 테스트는 다음과 같이 한글 서비스 호출로 테스트 되었습니다.
+
+```
+http localhost:8080/택시호출s
+-> gateway 를 호출하나 8081 로 호출됨
+```
+![gateway_3](https://user-images.githubusercontent.com/78134019/109480424-da504280-7abe-11eb-988e-2a6d7a1f7cea.png)
+
 
 
 
