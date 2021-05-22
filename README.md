@@ -1,4 +1,5 @@
 # 2조 과제 : 영화예매 시스템
+![image](https://user-images.githubusercontent.com/80744278/119227825-d0ccf880-bb4a-11eb-9f53-99faf04a0f35.png)
 
 # 서비스 시나리오
 
