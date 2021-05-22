@@ -329,29 +329,23 @@ REST 서비스를 FeignClient 를 이용하여 호출하도록 한다.
 
 - 클라우드 배포를 위해서 다음과 같이 패키징 작업을 하였습니다.
 ```
-cd gateway
+cd app
 mvn clean && mvn package
 cd ..
-cd taxicall
+cd pay
 mvn clean && mvn package
 cd ..
-cd taximanage
+cd movie
 mvn clean && mvn package
 cd ..
-cd taxiassign
+cd theater
+mvn clean && mvn package
+cd ..
+cd notice
 mvn clean && mvn package
 cd ..
 ```
 	
-<taxicall>
-	
-![mvn_taxicall](https://user-images.githubusercontent.com/78134019/109744165-31682b80-7c15-11eb-9d94-7bc23efca6b6.png)
+![image](https://user-images.githubusercontent.com/80744278/119227564-8a2ace80-bb49-11eb-88ce-e2df20a617a4.png)
 
-<taximanage>
-	
-![mvn_taximanage](https://user-images.githubusercontent.com/78134019/109744195-3b8a2a00-7c15-11eb-9554-1c3ba088af52.png)
-
-<taxiassign>
-	
-![mvn_taxiassign](https://user-images.githubusercontent.com/78134019/109744226-46dd5580-7c15-11eb-8b47-5100ed01e3ae.png)
 
