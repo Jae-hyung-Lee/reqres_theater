@@ -54,11 +54,41 @@
 ## 헥사고날 아키텍처 다이어그램 도출 (Polyglot)
 ![핵사고날_최종](https://user-images.githubusercontent.com/78134019/109744745-29f55200-7c16-11eb-8981-88924ad28cb3.jpg)
 
-
 # 구현:
 
-서비스를 로컬에서 실행하는 방법은 아래와 같으며, 실행의 편의성을 위해서
-각 서비스별로 bat 파일로 묶어서 실행 합니다. 
+분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
+
+```
+cd app
+mvn spring-boot:run
+
+cd pay
+mvn spring-boot:run 
+
+cd movie
+mvn spring-boot:run  
+
+cd theater
+mvn spring-boot:run
+
+cd notice
+mvn spring-boot:run
+```
+
+
+
+## DDD 의 적용
+총 5개의 Domain 으로 관리되고 있으며, 예약관리(Reservation) , 결재관리(Approval), 상영영화(MovieManagement), 영화좌석관리(MovieSeat), 영화관리(Movie)으로 구성하였습니다. 
+
+
+
+
+
+
+
+
+
+
 
 
 # Table of contents
