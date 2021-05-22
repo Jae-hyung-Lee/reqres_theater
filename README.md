@@ -285,7 +285,19 @@ http localhost:8080/app
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
+## 동기식 호출 과 Fallback 처리
 
+영화 예약(app)후 결재처리(pay) 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하였습니다.
+REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 
+```
+ - 동기식 호출 영화 예약 후 결재 처리 관련 소스 추가
+```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
+
+```
+ - Fallback 처리 결과 
+```
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 # Table of contents
 
