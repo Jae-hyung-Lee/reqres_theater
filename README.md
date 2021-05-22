@@ -202,23 +202,24 @@ EXPOSE 8090
 CMD ["python", "policy-handler.py"]
 ```
 
-## ★수정 필요★ 마이크로 서비스 호출 흐름
+## ★수정 필요★ 마이크로 서비스 호출 흐름 - 시나리오 확인 및 내용 추가 
 
 - 영화 예매 처리 
 
-영화 검색 후 예약(app)->결재관리(pay) 우선 결재처리(req/res) 되며,
-결재완(taxiassign)에서 택시기사를 할당하게 되면 호출 상태가 호출에서 호출확정 상태가 됩니다
+고객이 영화를 선택 후 예매(app) 후 결재요청(pay)은 (req/res) 되며,
+결재 완료 후 영화 예매 상태가 완료 됩니다.
 
-우선, 로컬에서는 다음과 같이 두 개의 호출 상태를 만듭니다.
+로컬에서는 다음과 같이 영화 예매를 한다. 
 ```
-http localhost:8081/택시호출s 휴대폰번호="01012345678" 호출상태=호출 호출위치="마포" 예상요금=25000
-http localhost:8081/택시호출s 휴대폰번호="01056789012" 호출상태=호출 호출위치="서대문구" 예상요금=30000
+http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
+http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
 ```
 ![taxicall1](https://user-images.githubusercontent.com/78134019/109771576-51611480-7c40-11eb-8754-94d35a5703ec.png)
 
 ![taxicall2](https://user-images.githubusercontent.com/78134019/109771589-545c0500-7c40-11eb-997a-90249ea8f912.png)
 
-우선, 클라우드 상에서 호출은 다음과 같이 합니다. External-IP는 20.194.36.201 입니다.
+
+우선, 클라우드 상에서 결재 완료를 합니다. External-IP는 xxx.xxx.xxx.xxx 입니다.
 ```
 http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
 http 20.194.36.201:8080/taxicalls tel="01023456789" status="호출" cost=25500
