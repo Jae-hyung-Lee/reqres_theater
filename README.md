@@ -347,4 +347,332 @@ cd ..
 ![image](https://user-images.githubusercontent.com/80744278/119227564-8a2ace80-bb49-11eb-88ce-e2df20a617a4.png)
 
 
+# 클라우드 배포/운영 파이프라인
+
+- 애저 클라우드에 배포하기 위해서 다음과 같이 주요 정보를 설정 하였습니다.
+
+```
+리소스 그룹명 : skccteam03-rsrcgrp
+클러스터 명 : skccteam03-aks
+레지스트리 명 : skccteam03
+```
+
+- az login
+우선 애저에 로그인 합니다.
+```
+{
+    "cloudName": "AzureCloud",
+    "homeTenantId": "6011e3f8-2818-42ea-9a63-66e6acc13e33",
+    "id": "718b6bd0-fb75-4ec9-9f6e-08ae501f92ca",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "2",
+    "state": "Enabled",
+    "tenantId": "6011e3f8-2818-42ea-9a63-66e6acc13e33",
+    "user": {
+      "name": "skTeam03@gkn2021hotmail.onmicrosoft.com",
+      "type": "user"
+    }
+  }
+```
+
+- 토큰 가져오기
+```
+az aks get-credentials --resource-group skccteam03-rsrcgrp --name skccteam03-aks
+```
+
+- aks에 acr 붙이기
+```
+az aks update -n skccteam03-aks -g skccteam03-rsrcgrp --attach-acr skccteam03
+```
+
+![aks붙이기](https://user-images.githubusercontent.com/78134019/109653395-540e2c00-7ba4-11eb-97dd-2dcfdf5dc539.jpg)
+
+- 네임스페이스 만들기
+
+```
+kubectl create ns team03
+kubectl get ns
+```
+![image](https://user-images.githubusercontent.com/78134019/109776836-5cb73e80-7c46-11eb-9562-d462525d6dab.png)
+
+* 도커 이미지 만들고 레지스트리에 등록하기
+```
+cd taxicall_eng
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/taxicalleng:v1 .
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/taxicalleng:v2 .
+cd ..
+cd taximanage_eng
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/taximanageeng:v1 .
+cd ..
+cd taxiassign_eng
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/taxiassigneng:v1 .
+cd ..
+cd gateway_eng
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/gatewayeng:v1 .
+cd ..
+cd customer_py
+az acr build --registry skccteam03 --image skccteam03.azurecr.io/customer-policy-handler:v1 .
+```
+
+![docker_gateway](https://user-images.githubusercontent.com/78134019/109777813-76a55100-7c47-11eb-8d8d-59eaabefab54.png)
+
+![docker_taxiassign](https://user-images.githubusercontent.com/78134019/109777820-77d67e00-7c47-11eb-9d77-85403dcf2da4.png)
+
+![docker_taxicall](https://user-images.githubusercontent.com/78134019/109777826-786f1480-7c47-11eb-9992-41f75907d16f.png)
+
+![docker_taximanage](https://user-images.githubusercontent.com/78134019/109777827-786f1480-7c47-11eb-9c9b-d3357eda0bd5.png)
+
+![docker_customer](https://user-images.githubusercontent.com/78134019/109777829-7907ab00-7c47-11eb-936f-723396cb272a.png)
+
+
+-각 마이크로 서비스를 yml 파일을 사용하여 배포 합니다.
+
+
+![deployment_yml](https://user-images.githubusercontent.com/78134019/109652001-9171ba00-7ba2-11eb-8c29-7128ceb4ec97.jpg)
+
+- deployment.yml로 서비스 배포
+```
+cd ../../
+cd customer_py/kubernetes
+kubectl apply -f deployment.yml --namespace=team03
+kubectl apply -f service.yaml --namespace=team03
+cd ../../
+cd taxicall_eng/kubernetes
+kubectl apply -f deployment.yml --namespace=team03
+kubectl apply -f service.yaml --namespace=team03
+
+cd ../../
+cd taximanage_eng/kubernetes
+kubectl apply -f deployment.yml --namespace=team03
+kubectl apply -f service.yaml --namespace=team03
+
+cd ../../
+cd taxiassign_eng/kubernetes
+kubectl apply -f deployment.yml --namespace=team03
+kubectl apply -f service.yaml --namespace=team03
+
+cd ../../
+cd gateway_eng/kubernetes
+kubectl apply -f deployment.yml --namespace=team03
+kubectl apply -f service.yaml --namespace=team03
+```
+<Deploy cutomer>
+	
+![deploy_customer](https://user-images.githubusercontent.com/78134019/109744443-a471a200-7c15-11eb-94c9-a0c0a7999d04.png)
+
+<Deploy gateway>
+	
+![deploy_gateway](https://user-images.githubusercontent.com/78134019/109744457-acc9dd00-7c15-11eb-8502-ff65e779e9d2.png)
+
+<Deploy taxiassign>
+	
+![deploy_taxiassign](https://user-images.githubusercontent.com/78134019/109744471-b3585480-7c15-11eb-8d68-bba9c3d8ce01.png)
+
+<Deploy taxicall>
+	
+![deploy_taxicall](https://user-images.githubusercontent.com/78134019/109744487-bb17f900-7c15-11eb-8bd0-ff0a9fc9b2e3.png)
+
+
+![deploy_taximanage](https://user-images.githubusercontent.com/78134019/109744591-e69ae380-7c15-11eb-834a-44befae55092.png)
+
+
+
+- 서비스확인
+```
+kubectl get all -n team03
+```
+![image](https://user-images.githubusercontent.com/78134019/109777026-9be58f80-7c46-11eb-9eac-a55ebcf91989.png)
+
+
+
+## 동기식 호출 / 서킷 브레이킹 / 장애격리
+
+* 서킷 브레이킹 프레임워크의 선택: Spring FeignClient + Hystrix 옵션을 사용하여 구현하였습니다.
+
+- Hystrix 를 설정:  
+
+요청처리 쓰레드에서 처리시간이 610 밀리가 넘어서기 시작하여 어느정도 유지되면 CB 회로가 닫히도록 (요청을 빠르게 실패처리, 차단) 설정
+```
+# application.yml
+feign:
+  hystrix:
+    enabled: true
+
+# To set thread isolation to SEMAPHORE
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          strategy: SEMAPHORE
+
+hystrix:
+  command:
+    # 전역설정
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 610
+
+```
+![hystrix](https://user-images.githubusercontent.com/78134019/109652345-0218d680-7ba3-11eb-847b-708ba071c119.jpg)
+
+
+부하테스트
+
+
+* Siege 리소스 생성
+
+```
+kubectl run siege --image=apexacme/siege-nginx -n team03
+```
+
+* 실행
+
+```
+kubectl exec -it pod/siege-5459b87f86-hlfm9 -c siege -n team03 -- /bin/bash
+```
+
+*부하 실행
+
+```
+siege -c200 -t60S -r10 -v --content-type "application/json" 'http://20.194.36.201:8080/taxicalls POST {"tel": "0101231234"}'
+```
+
+- 부하 발생하여 CB가 발동하여 요청 실패처리하였고, 밀린 부하가 택시호출(taxicall) 서비스에서 처리되면서 
+다시 taxicall에서 서비스를 받기 시작 합니다
+
+![secs1](https://user-images.githubusercontent.com/78134019/109786899-01d71480-7c51-11eb-9e6c-0a819e85b020.png)
+
+
+- report
+
+![secs2](https://user-images.githubusercontent.com/78134019/109786922-07345f00-7c51-11eb-900a-315f7d0d6484.png)
+
+
+
+
+
+### 오토스케일 아웃
+
+
+
+```
+# autocale out 설정
+ deployment.yml 설정
+```
+
+
+![auto1](https://user-images.githubusercontent.com/78134019/109794479-3ea70980-7c59-11eb-8d32-fbc039106c8c.jpg)
+
+
+```
+kubectl autoscale deploy taxicall --min=1 --max=10 --cpu-percent=15 -n team03
+```
+
+
+```
+root@labs--279084598:/home/project# kubectl exec -it pod/siege-5459b87f86-hlfm9 -c siege -n team03 -- /bin/bash
+root@siege-5459b87f86-hlfm9:/# siege -c100 -t120S -r10 -v --content-type "application/json" 'http://20.194.36.201:8080/taxicalls POST {"tel": "0101231234"}'
+```
+![auto4](https://user-images.githubusercontent.com/78134019/109794919-b70dca80-7c59-11eb-9710-8ff6b4dd5f54.jpg)
+
+
+
+- 오토스케일링에 대한 모니터링:
+```
+kubectl get deploy taxicall -w -n team03
+```
+![auto_final](https://user-images.githubusercontent.com/78134019/109796515-98a8ce80-7c5b-11eb-9512-a0a927217a38.jpg)
+
+
+
+## 무정지 재배포
+
+- deployment.yml에 readiness 옵션을 추가 
+
+
+![무정지 배포1](https://user-images.githubusercontent.com/78134019/109809110-45d71300-7c6b-11eb-955c-9b8a3b3db698.png)
+
+
+- seige 실행
+```
+siege -c100 -t120S -r10 -v --content-type "application/json" 'http://20.194.36.201:8080/taxicalls POST {"tel": "0101231234"}'
+```
+
+
+- Availability: 100.00 % 확인
+
+
+![무정지 배포2](https://user-images.githubusercontent.com/78134019/109810318-bd597200-7c6c-11eb-88e4-197386b1e338.png)
+
+
+![무정지 배포3](https://user-images.githubusercontent.com/78134019/109810688-2fca5200-7c6d-11eb-9c67-d252d703064a.png)
+
+
+
+## Config Map
+
+- apllication.yml 설정
+
+* default 프로파일
+
+![configmap1](https://user-images.githubusercontent.com/31096538/109798636-5df46580-7c5e-11eb-982d-16482f98b13f.JPG)
+
+* docker 프로파일
+
+![configmap2](https://user-images.githubusercontent.com/31096538/109798699-6e0c4500-7c5e-11eb-9d0d-47b90d637ae9.JPG)
+
+- Deployment.yml 설정
+
+![configmap3](https://user-images.githubusercontent.com/31096538/109798713-72d0f900-7c5e-11eb-8458-8fb9d6225c49.JPG)
+
+- config map 생성 후 조회
+```
+kubectl create configmap apiurl --from-literal=url=http://taxicall:8080 --from-literal=fluentd-server-ip=10.xxx.xxx.xxx -n team03
+```
+![configmap4](https://user-images.githubusercontent.com/31096538/109798727-76fd1680-7c5e-11eb-9818-327870ea2e4d.JPG)
+
+- 설정한 url로 주문 호출
+```
+http 20.194.36.201:8080/taxicalls tel="01012345678" status="call" location="mapo" cost=25000
+```
+
+![configmap5](https://user-images.githubusercontent.com/31096538/109798744-7c5a6100-7c5e-11eb-8aaa-03fa8277cee6.JPG)
+
+- configmap 삭제 후 app 서비스 재시작
+```
+kubectl delete configmap apiurl -n team03
+kubectl get pod/taxicall-74f7dbc967-mtbmq -n team03 -o yaml | kubectl replace --force -f-
+```
+![configmap6](https://user-images.githubusercontent.com/31096538/109798766-811f1500-7c5e-11eb-8008-1b9073cb6722.JPG)
+
+- configmap 삭제된 상태에서 주문 호출   
+```
+http 20.194.36.201:8080/taxicalls tel="01012345678" status="call" location="mapo" cost=25000
+kubectl get all -n team03
+```
+![configmap7](https://user-images.githubusercontent.com/31096538/109798785-85e3c900-7c5e-11eb-8769-ab416b1e17b2.JPG)
+
+
+![configmap8](https://user-images.githubusercontent.com/31096538/109798805-8bd9aa00-7c5e-11eb-8d05-1db2457d3611.JPG)
+
+
+![configmap9](https://user-images.githubusercontent.com/31096538/109798824-9005c780-7c5e-11eb-9d5b-6f14f9b6bba9.JPG)
+
+
+## Self-healing (Liveness Probe)
+
+
+- deployment.yml 에 Liveness Probe 옵션 추가
+```
+livenessProbe:
+	tcpSocket:
+	  port: 8081
+	initialDelaySeconds: 5
+	periodSeconds: 5
+```
+![selfhealing](https://user-images.githubusercontent.com/78134019/109805068-589b1900-7c66-11eb-9565-d44adde4ffc5.jpg)
+
+
+
 ※ 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
