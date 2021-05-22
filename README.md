@@ -48,13 +48,13 @@
 ![image](https://user-images.githubusercontent.com/80908892/118985614-8e27e680-b9b9-11eb-9b81-fe8d1196887e.png)
 
 ## 헥사고날 아키텍처 다이어그램 도출 (Polyglot)
-![핵사고날_최종](https://user-images.githubusercontent.com/78134019/109744745-29f55200-7c16-11eb-8981-88924ad28cb3.jpg)
+![image](https://user-images.githubusercontent.com/80744278/119230182-222eb500-bb56-11eb-9246-866f9f61acef.png)
 
 # 구현:
 
 분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
 
-```
+```maven
 cd app
 mvn spring-boot:run
 
@@ -74,7 +74,7 @@ mvn spring-boot:run
 ## DDD 의 적용
 총 5개의 Domain 으로 관리되고 있으며, 예약관리(Reservation) , 결재관리(Approval), 상영영화(MovieManagement), 영화좌석관리(MovieSeat), 영화관리(Movie)으로 구성하였습니다. 
 
-```
+```java
 package theater;
 
 import javax.persistence.Entity;
@@ -134,8 +134,11 @@ public class MovieManagement {
     }
 }
 ```
+
 - Entity Pattern 과 Repository Pattern 을 적용하여 JPA 를 통하여 다양한 데이터소스 유형 (RDB or NoSQL) 에 대한 별도의 처리가 없도록 데이터 접근 어댑터를 자동 생성하기 위하여 Spring Data REST 의 RestRepository 를 적용하였다
-```
+
+
+```java
 package theater;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -148,7 +151,8 @@ public interface MovieManagementRepository extends PagingAndSortingRepository<Mo
 ```
 
 - 적용 후 REST API 의 테스트
-```
+
+```http
 # Movie 등록
 http POST http://localhost:8083/movieManagements movieId=10001 title="분노의 질주" status="opened"
 http POST http://localhost:8083/movieManagements movieId=10002 title="미션 파서블" status="opened"
@@ -168,7 +172,8 @@ http GET http://localhost:8084/movies
 ## ★ 수정 필요 ★ 폴리글랏 프로그래밍 
 
 영화 예매 서비스의 시나리오인 예약 완료/취소 상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 하였다. 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
-```
+
+```python
 from flask import Flask
 from redis import Redis, RedisError
 from kafka import KafkaConsumer
@@ -189,7 +194,8 @@ for message in consumer:
 ```
 
 애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다
-```
+
+```docker
 FROM python:2.7-slim
 WORKDIR /app
 ADD . /app
@@ -359,7 +365,7 @@ cd ..
 
 - aws login
 우선 aws에 로그인 합니다.
-```
+```json
 {
     "cloudName": "AzureCloud",
     "homeTenantId": "6011e3f8-2818-42ea-9a63-66e6acc13e33",
@@ -390,14 +396,17 @@ az aks update -n skccteam03-aks -g skccteam03-rsrcgrp --attach-acr skccteam03
 
 - 네임스페이스 만들기
 
-```
+```shell
 kubectl create ns team03
 kubectl get ns
 ```
+
 ![image](https://user-images.githubusercontent.com/78134019/109776836-5cb73e80-7c46-11eb-9562-d462525d6dab.png)
 
 * 도커 이미지 만들고 레지스트리에 등록하기
-```
+
+
+```shell
 cd taxicall_eng
 az acr build --registry skccteam03 --image skccteam03.azurecr.io/taxicalleng:v1 .
 az acr build --registry skccteam03 --image skccteam03.azurecr.io/taxicalleng:v2 .
@@ -432,7 +441,9 @@ az acr build --registry skccteam03 --image skccteam03.azurecr.io/customer-policy
 ![deployment_yml](https://user-images.githubusercontent.com/78134019/109652001-9171ba00-7ba2-11eb-8c29-7128ceb4ec97.jpg)
 
 - deployment.yml로 서비스 배포
-```
+
+
+```shell
 cd ../../
 cd customer_py/kubernetes
 kubectl apply -f deployment.yml --namespace=team03
@@ -493,7 +504,9 @@ kubectl get all -n team03
 - Hystrix 를 설정:  
 
 요청처리 쓰레드에서 처리시간이 610 밀리가 넘어서기 시작하여 어느정도 유지되면 CB 회로가 닫히도록 (요청을 빠르게 실패처리, 차단) 설정
-```
+
+
+```yaml
 # application.yml
 feign:
   hystrix:
@@ -664,7 +677,9 @@ kubectl get all -n team03
 
 
 - deployment.yml 에 Liveness Probe 옵션 추가
-```
+
+
+```yaml
 livenessProbe:
 	tcpSocket:
 	  port: 8081
