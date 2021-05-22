@@ -301,26 +301,24 @@ REST 서비스를 FeignClient 를 이용하여 호출하도록 한다.
 
 
 
-## 비동기식 호출 / 장애격리  / 성능
+## 비동기식 호출 / 장애격리 / 성능
 
-결재(pay) 완료 후 상영관(theater) 좌석지정은 비동기식 처리이므로, 
-영화 예매(app)의 서비스 호출에는 영향이 없도록 구성 합니다.
+영화 예매 취소(app) 이후 결재 취소(pay), 해당 극장 영화/좌석 취소(theater)는 비동기식 처리이므로, 
+영화 예매 취소(app)의 서비스 호출에는 영향이 없도록 구성 합니다.
  
-고객이 택시 호출(Taxicall) 후 상태가 [호출]->[호출중] 로 변경되고 할당이 완료되면 [호출확정] 로 변경이 되지만 , 
-택시 할당(TaxiAssign)이 정상적이지 않으므로 [호출중]로 남게 됩니다. 
+<영화 예매 취소>
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
-<고객 택시 호출 Taxi call>
-![비동기_호출2](https://user-images.githubusercontent.com/78134019/109468467-f4365900-7aaf-11eb-877a-049637b5ee6a.png)
+<결재 취소>
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
-<택시 할당이 정상적이지 않아 호출중으로 남아있음>
-![택시호출_택시할당없이_조회](https://user-images.githubusercontent.com/78134019/109471791-99ebc700-7ab4-11eb-924f-03715de42eba.png)
-
+<해당 극장 영화/좌석 취소>
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 ## 정보 조회 / View 조회
-고객은 택시가 할당되는 동안의 내용을 조회 할 수 있습니다.
-
-![고객View](https://user-images.githubusercontent.com/78134019/109483385-80ea1280-7ac2-11eb-9419-bf3ff5a0dbbc.png)
+고객은 예약 현황을 조회 할 수 있습니다. 
+![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 ## 소스 패키징
