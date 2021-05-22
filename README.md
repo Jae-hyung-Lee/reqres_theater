@@ -307,17 +307,21 @@ REST 서비스를 FeignClient 를 이용하여 호출하도록 한다.
 영화 예매 취소(app)의 서비스 호출에는 영향이 없도록 구성 합니다.
  
 <영화 예매 취소>
+
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 <결재 취소>
+
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 <해당 극장 영화/좌석 취소>
+
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
 ## 정보 조회 / View 조회
 고객은 예약 현황을 조회 할 수 있습니다. 
+
 ![image](https://user-images.githubusercontent.com/80744278/119226000-015c6480-bb42-11eb-88df-b5a384ef2562.png)
 
 
