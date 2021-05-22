@@ -45,10 +45,21 @@
 - 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
 
 # 분석/설계
+![image](https://user-images.githubusercontent.com/80908892/118935502-94509f80-b986-11eb-820d-7ad60bf637a0.png)
+
+- movie서비스에서 cutomer조회 기능 제거
+- app서비스에서 pay서비스로가는 cancel(pub/sub) 중복 표현 제거(3개 -> 1개)
+![image](https://user-images.githubusercontent.com/80908892/118985614-8e27e680-b9b9-11eb-9b81-fe8d1196887e.png)
+
+## 헥사고날 아키텍처 다이어그램 도출 (Polyglot)
+![핵사고날_최종](https://user-images.githubusercontent.com/78134019/109744745-29f55200-7c16-11eb-8981-88924ad28cb3.jpg)
 
 
-# 설계
-![](project-map.png)
+# 구현:
+
+서비스를 로컬에서 실행하는 방법은 아래와 같으며, 실행의 편의성을 위해서
+각 서비스별로 bat 파일로 묶어서 실행 합니다. 
+
 
 # Table of contents
 
