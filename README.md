@@ -48,7 +48,7 @@
 ![image](https://user-images.githubusercontent.com/80908892/118985614-8e27e680-b9b9-11eb-9b81-fe8d1196887e.png)
 
 ## 헥사고날 아키텍처 다이어그램 도출 (Polyglot)
-![image](https://user-images.githubusercontent.com/80744278/119230182-222eb500-bb56-11eb-9246-866f9f61acef.png)
+![image](https://user-images.githubusercontent.com/80744278/119246683-753c5280-bbbe-11eb-9e97-cbb1f3d99af7.png)
 
 # 구현:
 
