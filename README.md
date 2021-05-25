@@ -52,7 +52,7 @@
 - movie서비스에서 cutomer조회 기능 제거
 
 ### 액터, 커맨드 부착하여 읽기 좋게
-![image](https://user-images.githubusercontent.com/80744278/119440657-b324ac80-bd5f-11eb-8f2f-bcd413e247fb.png)
+![image](https://user-images.githubusercontent.com/80744278/119443846-3c8aad80-bd65-11eb-820e-4facedbd1f0f.png)
 
 ### 어그리게잇으로 묶기
 ![image](https://user-images.githubusercontent.com/80744278/119441551-44e0e980-bd61-11eb-92a0-05b2da87c16c.png)
