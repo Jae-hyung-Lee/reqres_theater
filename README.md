@@ -44,6 +44,27 @@
 ---
 # 분석/설계
 
+### 이벤트 도출
+![image](https://user-images.githubusercontent.com/80744278/119439561-98513880-bd5d-11eb-82b4-e90e886525a2.png)
+
+### 부적격 이벤트 탈락
+![image](https://user-images.githubusercontent.com/80744278/119439606-b028bc80-bd5d-11eb-8504-b76ca2b125e6.png)
+
+- 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
+- 주문시>메뉴카테고리선택됨, 주문시>메뉴검색됨 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
+
+### 액터, 커맨드 부착하여 읽기 좋게
+![image](https://user-images.githubusercontent.com/80744278/119439777-085fbe80-bd5e-11eb-9356-f386e0ed78ed.png)
+
+### 어그리게잇으로 묶기
+![image](https://user-images.githubusercontent.com/487999/79683618-52769680-8266-11ea-9c21-48d6812444ba.png)
+
+    - app의 Order, store 의 주문처리, 결제의 결제이력은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
+
+### 바운디드 컨텍스트로 묶기
+
+![image](https://user-images.githubusercontent.com/487999/79683625-560a1d80-8266-11ea-9790-40d68a36d95d.png)
+
 ## 이벤트스토밍
 ![image](https://user-images.githubusercontent.com/80908892/118935502-94509f80-b986-11eb-820d-7ad60bf637a0.png)
 
