@@ -49,6 +49,7 @@
 
 ### 부적격 이벤트 탈락
 ![image](https://user-images.githubusercontent.com/80744278/119439606-b028bc80-bd5d-11eb-8504-b76ca2b125e6.png)
+- movie서비스에서 cutomer조회 기능 제거
 
 ### 액터, 커맨드 부착하여 읽기 좋게
 ![image](https://user-images.githubusercontent.com/80744278/119440657-b324ac80-bd5f-11eb-8f2f-bcd413e247fb.png)
@@ -62,7 +63,6 @@
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
 ![image](https://user-images.githubusercontent.com/80908892/118935502-94509f80-b986-11eb-820d-7ad60bf637a0.png)
 
-- movie서비스에서 cutomer조회 기능 제거
 - app서비스에서 pay서비스로가는 cancel(pub/sub) 중복 표현 제거(3개 -> 1개)
 ![image](https://user-images.githubusercontent.com/80908892/118985614-8e27e680-b9b9-11eb-9b81-fe8d1196887e.png)
 
