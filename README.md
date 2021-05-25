@@ -60,9 +60,6 @@
 ![image](https://user-images.githubusercontent.com/80744278/119442051-1c0d2400-bd62-11eb-9633-5979afd294e8.png)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
-![image](https://user-images.githubusercontent.com/487999/79683625-560a1d80-8266-11ea-9790-40d68a36d95d.png)
-
-## 이벤트스토밍
 ![image](https://user-images.githubusercontent.com/80908892/118935502-94509f80-b986-11eb-820d-7ad60bf637a0.png)
 
 - movie서비스에서 cutomer조회 기능 제거
