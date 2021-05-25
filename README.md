@@ -55,10 +55,10 @@
 ![image](https://user-images.githubusercontent.com/80744278/119443846-3c8aad80-bd65-11eb-820e-4facedbd1f0f.png)
 
 ### 어그리게잇으로 묶기
-![image](https://user-images.githubusercontent.com/80744278/119441551-44e0e980-bd61-11eb-92a0-05b2da87c16c.png)
+![image](https://user-images.githubusercontent.com/80744278/119444710-a48dc380-bd66-11eb-85d1-c72493cded18.png)
 
 ### 바운디드 컨텍스트로 묶기
-![image](https://user-images.githubusercontent.com/80744278/119442051-1c0d2400-bd62-11eb-9633-5979afd294e8.png)
+![image](https://user-images.githubusercontent.com/80744278/119444790-c38c5580-bd66-11eb-864e-d3e57cb8350d.png)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
 ![image](https://user-images.githubusercontent.com/80908892/118935502-94509f80-b986-11eb-820d-7ad60bf637a0.png)
