@@ -50,11 +50,8 @@
 ### 부적격 이벤트 탈락
 ![image](https://user-images.githubusercontent.com/80744278/119439606-b028bc80-bd5d-11eb-8504-b76ca2b125e6.png)
 
-- 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
-- 주문시>메뉴카테고리선택됨, 주문시>메뉴검색됨 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
-
 ### 액터, 커맨드 부착하여 읽기 좋게
-![image](https://user-images.githubusercontent.com/80744278/119439777-085fbe80-bd5e-11eb-9356-f386e0ed78ed.png)
+![image](https://user-images.githubusercontent.com/80744278/119440657-b324ac80-bd5f-11eb-8f2f-bcd413e247fb.pn
 
 ### 어그리게잇으로 묶기
 ![image](https://user-images.githubusercontent.com/487999/79683618-52769680-8266-11ea-9c21-48d6812444ba.png)
