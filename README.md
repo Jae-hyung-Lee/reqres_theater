@@ -56,10 +56,10 @@
 ### 어그리게잇으로 묶기
 ![image](https://user-images.githubusercontent.com/80744278/119441551-44e0e980-bd61-11eb-92a0-05b2da87c16c.png)
 
-
-
 ### 바운디드 컨텍스트로 묶기
+![image](https://user-images.githubusercontent.com/80744278/119442051-1c0d2400-bd62-11eb-9633-5979afd294e8.png)
 
+### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
 ![image](https://user-images.githubusercontent.com/487999/79683625-560a1d80-8266-11ea-9790-40d68a36d95d.png)
 
 ## 이벤트스토밍
